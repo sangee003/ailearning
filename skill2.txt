@@ -1,0 +1,37 @@
+# 🛠️ Skill: Critical Field Lineage to Draw.io XML
+
+## 📖 Description
+This skill reads the Excel file of critical fields, parses SQL files to discover column flows, and generates a **Draw.io XML diagram**.  
+Parent table columns not listed in the Excel are excluded.
+
+---
+
+## 📋 Workflow Steps
+1. **Input: Critical Fields Excel**
+   - Load `critical_fields.xlsx`.
+
+2. **SQL Parsing**
+   - Parse released SQL files (`Customer.sql`, `Sales.sql`, `v_customer_report.sql`).
+   - Identify lineage flows for only the critical fields.
+
+3. **Lineage Mapping**
+   - Build a mapping table:
+     | Critical Column | Source Table | Destination Table/View | Transformation |
+     |-----------------|--------------|------------------------|----------------|
+     | CustomerID      | Customer     | Sales                  | Foreign Key    |
+     | CustomerID      | Sales        | v_customer_report      | Direct Mapping |
+     | Email           | Customer     | v_customer_report      | Direct Mapping |
+     | TotalAmount     | Sales        | v_customer_report      | SUM, Direct Mapping |
+
+4. **Draw.io XML Generation**
+   - Create nodes for only the involved tables/views.
+   - Add edges labeled with the critical fields and transformations.
+   - Export as `critical_lineage.drawio`.
+
+---
+
+## ✅ Outcome
+- Reads Excel → filters only critical fields.
+- Parses SQL → builds lineage mapping.
+- Outputs **Draw.io XML** → ready to open in diagrams.net.
+- Diagram shows **only the specified columns**, with transformation labels.

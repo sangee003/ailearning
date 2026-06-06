@@ -1,0 +1,52 @@
+# 🛠️ Skill: Critical Field Extraction from Power BI
+
+## 📖 Description
+This skill inspects a Power BI report file (`.pbix`) to identify **critical fields**.  
+Critical fields are defined as:
+- Columns actively used in visuals (tables, charts, matrices, slicers).
+- Measures and calculated fields referenced in KPIs or cards.
+- Filters and slicers applied in report pages.
+
+Parent table columns that are not used in the report are **excluded**.
+
+---
+
+## 📋 Workflow Steps
+
+1. **Input: Power BI File**
+   - Accept a `.pbix` file as input.
+
+2. **Model Inspection**
+   - Read the data model (tables, relationships, measures).
+   - Identify all fields referenced in visuals, measures, and filters.
+
+3. **Critical Field Filtering**
+   - Compare extracted fields against the Excel list of critical fields (if provided).
+   - Keep only the overlapping fields.
+   - Exclude unused parent table columns.
+
+4. **Output**
+   - Generate a structured list of critical fields:
+     | Critical Field | Source Table | Usage Context |
+     |----------------|--------------|---------------|
+     | CustomerID     | Customer     | Table Visual, Matrix |
+     | Email          | Customer     | Table Visual |
+     | TotalAmount    | Sales        | KPI Card, Line Chart |
+
+   - Optionally, export lineage to **Draw.io XML** for visualization.
+
+---
+
+## ✅ Outcome
+- Produces a **clean list of critical fields** used in the Power BI report.
+- Ensures alignment with governance requirements.
+- Avoids clutter from unused parent table columns.
+- Can integrate with lineage visualization workflows.
+
+---
+
+## 🔧 Example Usage
+- Input: `report.pbix`
+- Output:  
+  - Critical fields list in Markdown/CSV.  
+  - Optional Draw.io XML diagram showing lineage of those fields.
